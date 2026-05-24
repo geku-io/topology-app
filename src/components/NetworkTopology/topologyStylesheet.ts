@@ -108,7 +108,7 @@ export const cyStyles: StylesheetJson = [
       selector: "edge",
       style: {
          width: 1,
-         "line-color": "#334155",
+         "line-color": "#3b82f6",
          "target-arrow-shape": "none",
          "curve-style": "bezier",
          opacity: 0.7,
@@ -127,7 +127,7 @@ export const cyStyles: StylesheetJson = [
    {
       selector: "edge[type='dashed']",
       style: {
-         "line-color": "#475569",
+         "line-color": "#3b82f6",
          "line-style": "dashed",
          "line-dash-pattern": [5, 3],
       },

@@ -9,7 +9,6 @@ export interface ISelectProps {
 }
 
 const Select = ({ options, value, setValue, changeHandler }: ISelectProps) => {
-   console.log("inner", value);
    return (
       <SelectComponent
          placeholder="Выберите тип соединений"

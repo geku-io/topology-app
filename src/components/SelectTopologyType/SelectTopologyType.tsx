@@ -23,7 +23,6 @@ const SelectTopologyType = ({
          if (newValue) {
             return filterDataByMode(originalDataRef.current, newValue);
          } else {
-            console.log(originalDataRef.current);
             return originalDataRef.current;
          }
       });
