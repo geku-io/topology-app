@@ -36,21 +36,17 @@ const NetworkTopology = ({ data }: ITopologyProps) => {
                   "elk.direction": "RIGHT",
                   "elk.edgeRouting": "SPLINES",
                   "elk.spacing.nodeNode": "80",
+                  "elk.spacing.nodeNodeBetweenLayers": "50",
+                  "elk.spacing.componentComponent": "50",
                   "elk.layered.spacing.nodeNodeBetweenLayers": "120",
                   "elk.hierarchyHandling": "INCLUDE_CHILDREN",
-                  "elk.portConstraints": "FREE",
                   "elk.layered.nodePlacement.strategy": "NETWORK_SIMPLEX",
                   "elk.layered.crossingMinimization.strategy": "LAYER_SWEEP",
                   "elk.layered.crossingMinimization.greedySwitch.type":
                      "TWO_SIDED",
-                  "elk.padding": "[top=30, left=30, bottom=30, right=30]",
                   "elk.layered.compaction.postCompaction.strategy":
                      "EDGE_LENGTH",
                   "elk.layered.compaction.connectedComponents": "true",
-
-                  // Рёбра между compound-нодами идут по краям, не через середину
-                  "elk.layered.unnecessaryBendpoints": "true",
-                  "elk.layered.edgeCenter.strategy": "CENTER",
                },
             } as ElkLayoutOptions,
          });
