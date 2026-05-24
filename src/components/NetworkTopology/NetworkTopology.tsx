@@ -1,53 +1,23 @@
 import { useEffect, useRef } from "react";
-import { useQuery } from "@tanstack/react-query";
 import cytoscape, { type ElkLayoutOptions } from "cytoscape";
 import elk from "cytoscape-elk";
-import {
-   ConnectionKind,
-   NodeKind,
-   NodeState,
-   type ITopologyData,
-} from "../../types/entities.types";
 import type { ICyEdgeElement, ICyNodeElement } from "../../types/cy.types";
 import styles from "./NetworkTopology.module.scss";
 import { cyStyles } from "./topologyStylesheet";
+import type { ITopologyData } from "../../types/entities.types";
 
 cytoscape.use(elk);
 
-function NetworkTopology() {
+interface ITopologyProps {
+   data: ITopologyData;
+}
+
+const NetworkTopology = ({ data }: ITopologyProps) => {
    const containerRef = useRef(null);
    const cyRef = useRef<null | cytoscape.Core>(null);
-   const { data, isPending, isError } = useQuery<ITopologyData>({
-      queryKey: ["data"],
-      queryFn: async () => {
-         const res = await fetch("/api");
-         const data: ITopologyData = await res.json();
-         const rawNodes = data.nodes.filter(
-            node =>
-               Object.values(NodeKind).includes(node.type) &&
-               Object.values(NodeState).includes(node.state),
-         );
-         console.log(rawNodes);
-         const filteredNodes = rawNodes.filter(
-            item =>
-               !item.parent || rawNodes.find(node => node.id === item.parent),
-         );
-         const filteredConnections = data.connections.filter(
-            item =>
-               item.source !== item.target &&
-               filteredNodes.find(node => node.id === item.source) &&
-               filteredNodes.find(node => node.id === item.target) &&
-               Object.values(ConnectionKind).includes(item.type),
-         );
-         return {
-            ...data,
-            connections: filteredConnections,
-            nodes: filteredNodes,
-         };
-      },
-   });
    useEffect(() => {
-      if (!cyRef.current && containerRef.current && data) {
+      if (containerRef.current && data) {
+         console.log(data);
          const nodeElements = data.nodes.map<ICyNodeElement>(item => ({
             data: item,
          }));
@@ -85,15 +55,13 @@ function NetworkTopology() {
             } as ElkLayoutOptions,
          });
          cyRef.current = coreCy;
+         return () => {
+            coreCy.unmount();
+            cyRef.current = null;
+         };
       }
    }, [data]);
-   if (isPending) {
-      return <div>Загрузка данных...</div>;
-   }
-   if (isError) {
-      return <div>Произошла ошибка</div>;
-   }
    return <div ref={containerRef} className={styles.container} />;
-}
+};
 
 export default NetworkTopology;

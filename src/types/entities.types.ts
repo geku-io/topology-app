@@ -16,7 +16,7 @@ export const ConnectionKind = {
    DASHED: "dashed",
 } as const;
 
-type NodeKindType = (typeof NodeKind)[keyof typeof NodeKind];
+export type NodeKindType = (typeof NodeKind)[keyof typeof NodeKind];
 
 type NodeStateType = (typeof NodeState)[keyof typeof NodeState];
 
