@@ -12,9 +12,11 @@
   "dependencies": {
     "@tanstack/react-query": "^5.100.11",
     "cytoscape": "^3.33.4",
+    "cytoscape-elk": "^2.3.0",
     "react": "^19.2.6",
     "react-dom": "^19.2.6",
-    "scss": "^0.2.4"
+    "react-select": "^5.10.2",
+    "sass": "^1.99.0"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
